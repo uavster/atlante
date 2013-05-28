@@ -10,6 +10,7 @@
 #include "include/cvgException.h"
 #include "include/Vector3.h"
 #include "include/Vector4.h"
+#include "include/Quaternion.h"
 #include "include/Matrix3.h"
 #include "include/Matrix4.h"
 #include "include/RotMatrix3.h"
