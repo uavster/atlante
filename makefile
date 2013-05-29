@@ -83,7 +83,9 @@ LIBNAME = atlante
 LIBFILE = lib$(LIBNAME).a
 LIBRARY = $(LIBPATH)/$(LIBFILE)
 
-INSTALL_PATH := /usr/local/lib
+INSTALL_PREFIX := /usr/local
+INSTALL_LIBPATH := $(INSTALL_PREFIX)/lib
+INSTALL_INCLUDEPATH := $(INSTALL_PREFIX)/include
 
 .PHONY: all clean install
 
@@ -94,8 +96,11 @@ install: $(LIBRARY)
 ifeq ($(GOTWINDOWS), yes)
 	@echo Sorry, install is not supported in Windows yet.
 else	
-	@echo Copying $(LIBFILE) to $(INSTALL_PATH) ...
-	@install -m 0755 $(LIBRARY) $(INSTALL_PATH)
+	@echo Copying $(LIBFILE) to $(INSTALL_LIBPATH) ...
+	@install -m 0755 $(LIBRARY) $(INSTALL_LIBPATH)
+	@echo Copying headers to $(INSTALL_INCLUDEPATH)/$(LIBNAME) ...
+	@install -m 0755 -d $(INSTALL_INCLUDEPATH)/$(LIBNAME)
+	@install -m 0644 $(INCLUDEPATH)/* $(INSTALL_INCLUDEPATH)/$(LIBNAME)
 	@echo Atlante was installed successfully.
 endif
 
@@ -104,8 +109,10 @@ uninstall:
 ifeq ($(GOTWINDOWS), yes)
 	@echo Sorry, uninstall is not supported in Windows yet.
 else	
-	@echo Removing $(LIBFILE) from $(INSTALL_PATH) ...
-	@rm -f $(INSTALL_PATH)/$(LIBFILE)
+	@echo Removing $(INSTALL_LIBPATH)/$(LIBFILE) ...
+	@rm -f $(INSTALL_LIBPATH)/$(LIBFILE)
+	@echo Removing $(INSTALL_INCLUDEPATH)/$(LIBNAME) ...
+	@rm -r $(INSTALL_INCLUDEPATH)/$(LIBNAME)
 endif
 	@echo Atlante was uninstalled successfully.
 
