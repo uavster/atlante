@@ -80,12 +80,14 @@ OBJECTSWITHPATH := $(addprefix $(OBJPATH)/,$(OBJECTS))
 
 LIBNAME = atlante
 
+LIBNAME_UPPER := $(shell echo $(LIBNAME) | tr 'a-z' 'A-Z')
 LIBFILE = lib$(LIBNAME).a
 LIBRARY = $(LIBPATH)/$(LIBFILE)
 
 INSTALL_PREFIX := /usr/local
 INSTALL_LIBPATH := $(INSTALL_PREFIX)/lib
 INSTALL_INCLUDEPATH := $(INSTALL_PREFIX)/include
+PKGCONFIG_PCPATH := $(INSTALL_LIBPATH)/pkgconfig
 
 .PHONY: all clean install
 
@@ -101,6 +103,10 @@ else
 	@echo Copying headers to $(INSTALL_INCLUDEPATH)/$(LIBNAME) ...
 	@install -m 0755 -d $(INSTALL_INCLUDEPATH)/$(LIBNAME)
 	@install -m 0644 $(INCLUDEPATH)/* $(INSTALL_INCLUDEPATH)/$(LIBNAME)
+	@echo Configuring pkg-config...
+	@install -m 0644 $(LIBNAME).pc $(PKGCONFIG_PCPATH)/$(LIBNAME).pc
+	@echo Configuring cmake...
+	@install -m 0644 Find$(LIBNAME_UPPER).cmake /usr/share/cmake-*/Modules/
 	@echo Atlante was installed successfully.
 endif
 
@@ -113,6 +119,10 @@ else
 	@rm -f $(INSTALL_LIBPATH)/$(LIBFILE)
 	@echo Removing $(INSTALL_INCLUDEPATH)/$(LIBNAME) ...
 	@rm -r $(INSTALL_INCLUDEPATH)/$(LIBNAME)
+	@echo Removing $(PKGCONFIG_PCPATH)/$(LIBNAME).pc ...
+	@rm -f $(PKGCONFIG_PCPATH)/$(LIBNAME).pc
+	@echo Removing /usr/share/cmake-*/Modules/Find$(LIBNAME_UPPER).cmake
+	@rm -f /usr/share/cmake-*/Modules/Find$(LIBNAME_UPPER).cmake
 endif
 	@echo Atlante was uninstalled successfully.
 
