@@ -78,11 +78,36 @@ HEADERS:=$(wildcard $(addprefix $(INCLUDEPATH)/,$(HEADER_MASKS_SEARCH)))
 OBJECTS := $(strip $(foreach EXT,$(SOURCE_EXTENSIONS),$(patsubst %.$(EXT),%.$(EXT)o,$(filter %.$(EXT),$(notdir $(SOURCES))))))
 OBJECTSWITHPATH := $(addprefix $(OBJPATH)/,$(OBJECTS))
 
-LIBRARY = $(LIBPATH)/libatlante.a
+LIBNAME = atlante
 
-.PHONY: all clean
+LIBFILE = lib$(LIBNAME).a
+LIBRARY = $(LIBPATH)/$(LIBFILE)
+
+INSTALL_PATH := /usr/local/lib
+
+.PHONY: all clean install
 
 all: $(LIBRARY) 
+
+install: $(LIBRARY)
+	@echo Installing Atlante...
+ifeq ($(GOTWINDOWS), yes)
+	@echo Sorry, install is not supported in Windows yet.
+else	
+	@echo Copying $(LIBFILE) to $(INSTALL_PATH) ...
+	@install -m 0755 $(LIBRARY) $(INSTALL_PATH)
+	@echo Atlante was installed successfully.
+endif
+
+uninstall:
+	@echo Uninstalling Atlante...
+ifeq ($(GOTWINDOWS), yes)
+	@echo Sorry, uninstall is not supported in Windows yet.
+else	
+	@echo Removing $(LIBFILE) from $(INSTALL_PATH) ...
+	@rm -f $(INSTALL_PATH)/$(LIBFILE)
+endif
+	@echo Atlante was uninstalled successfully.
 
 clean:
 	@echo Cleaning objects...
