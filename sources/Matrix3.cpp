@@ -195,3 +195,7 @@ double Matrix3::trace() const {
 	return value[0][0] + value[1][1] + value[2][2];
 }
 
+std::ostream &operator << (std::ostream &out, Matrix3 &m) {
+	out << m.toString();
+	return out;
+}

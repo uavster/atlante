@@ -7,6 +7,7 @@
 
 #include "../include/Quaternion.h"
 #include <math.h>
+#include <iostream>
 
 #define ACCURACY_THRESHOLD		1e-6
 
@@ -215,4 +216,14 @@ Quaternion Quaternion::normalize() const {
 	return Quaternion(x * k, y * k, z * k, w * k);
 }
 
+cvgString Quaternion::toString() const {
+	Vector3 axis = getAxis();
+	return 	cvgString("(") + x + ", " + y + ", " + z + ", " + w + ")" +
+		" | " + getAngle() + "º" +
+		" around (" + axis.x + ", " + axis.y + ", " + axis.z + ")";
+}
 
+std::ostream &operator << (std::ostream &out, const Quaternion &q) {
+	out << q.toString();
+	return out;
+}

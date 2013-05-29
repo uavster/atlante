@@ -13,6 +13,7 @@ class Vector3;
 #include <string.h>
 #include "cvg_types.h"
 #include "cvgString.h"
+#include <iostream>
 
 class Matrix3
 {
@@ -50,5 +51,6 @@ public:
 };
 
 inline Matrix3 operator * (double left, const Matrix3 &right) { return right * left; }
+std::ostream &operator << (std::ostream &out, Matrix3 &m);
 
 #endif

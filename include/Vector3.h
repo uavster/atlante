@@ -9,6 +9,8 @@
 #define VECTOR3_H_
 
 #include "cvg_types.h"
+#include "cvgString.h"
+#include <iostream>
 
 class Matrix3;
 
@@ -42,8 +44,11 @@ public:
 	Vector3 operator < (const Vector3 &v) const;
 	Vector3 operator < (double t) const;
 	cvg_uint countValues(double v) const;
+
+	cvgString toString() const;
 };
 
 inline Vector3 operator * (double left, const Vector3 &right) { return right * left; }
+std::ostream &operator << (std::ostream &out, const Vector3 &v);
 
 #endif

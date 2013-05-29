@@ -123,3 +123,11 @@ cvg_uint Vector3::countValues(double v) const {
 	return count;
 }
 
+cvgString Vector3::toString() const {
+	return cvgString("(") + x + ", " + y + ", " + z + ")";
+}
+
+std::ostream &operator << (std::ostream &out, const Vector3 &v) {
+	out << v.toString();
+	return out;
+}

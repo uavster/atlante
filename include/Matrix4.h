@@ -13,6 +13,7 @@
 #include <string.h>
 #include "cvgString.h"
 #include "cvgException.h"
+#include <iostream>
 
 class Matrix4
 {
@@ -58,5 +59,6 @@ private:
 };
 
 inline Matrix4 operator * (double left, const Matrix4 &right) { return right * left; }
+std::ostream &operator << (std::ostream &out, Matrix4 &m);
 
 #endif

@@ -288,3 +288,8 @@ Matrix4 Matrix4::operator > (double t) const {
 			out.value[y][x] = value[y][x] > t ? 1.0 : 0.0;
 	return out;
 }
+
+std::ostream &operator << (std::ostream &out, Matrix4 &m) {
+	out << m.toString();
+	return out;
+}

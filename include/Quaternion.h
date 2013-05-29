@@ -12,6 +12,8 @@
 #include "Vector3.h"
 #include "Vector4.h"
 #include "RotMatrix3.h"
+#include "cvgString.h"
+#include <iostream>
 
 class Quaternion : public virtual Vector4
 {
@@ -42,8 +44,11 @@ public:
 	cvg_double operator * (const Quaternion &q) const;
 	Quaternion inverse() const;
 	cvg_double norm() const;
+
+	cvgString toString() const;
 };
 
 inline Quaternion operator * (cvg_double left, const Quaternion &right) { return right * left; }
+std::ostream &operator << (std::ostream &out, const Quaternion &q);
 
 #endif /* QUATERNION_H_ */

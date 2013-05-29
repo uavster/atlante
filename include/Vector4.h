@@ -9,6 +9,8 @@
 #define VECTOR4_H_
 
 #include "Vector3.h"
+#include <iostream>
+#include "cvgString.h"
 
 class Matrix4;
 
@@ -29,8 +31,11 @@ public:
 	Vector4 operator * (Matrix4 &m) const;
 	Vector4 operator * (double f) const;
 	Vector4 operator / (double d) const;
+
+	cvgString toString() const;
 };
 
 inline Vector4 operator * (double left, const Vector4 &right) { return right * left; }
+std::ostream &operator << (std::ostream &out, const Vector4 &v);
 
 #endif // !defined(AFX_VECTOR4_H__433671C9_B2F2_4AAE_8278_796F5D676396__INCLUDED_)

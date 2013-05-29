@@ -30,3 +30,12 @@ Vector4 Vector4::operator * (double f) const {
 Vector4 Vector4::operator / (double d) const {
 	return Vector4(x / d, y / d, z / d, w / d);
 }
+
+cvgString Vector4::toString() const {
+	return cvgString("(") + x + ", " + y + ", " + z + ", " + w + ")";
+}
+
+std::ostream &operator << (std::ostream &out, const Vector4 &v) {
+	out << v.toString();
+	return out;
+}
