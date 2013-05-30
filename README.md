@@ -14,7 +14,8 @@ On Linux:
 Run 'sudo make install'
 
 On Windows:
-Run 'make' and copy libatlante.a to some folder in your path
+- If you are using GNU Make, run 'gmake' and copy lib/gcc/libatlante.a to some folder in your library path.
+- If you are using Visual Studio, there is a 'Visual Studio' subfolder under 'IDEs'.
 
 Contact
 =======
