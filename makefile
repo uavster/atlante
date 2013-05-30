@@ -88,6 +88,7 @@ INSTALL_PREFIX := /usr/local
 INSTALL_LIBPATH := $(INSTALL_PREFIX)/lib
 INSTALL_INCLUDEPATH := $(INSTALL_PREFIX)/include
 PKGCONFIG_PCPATH := $(INSTALL_LIBPATH)/pkgconfig
+CMAKEMODULES_PATH := /usr/share/cmake-*/Modules
 
 .PHONY: all clean install
 
@@ -113,10 +114,8 @@ else
 	@install -m 0755 -d $(INSTALL_INCLUDEPATH)/$(LIBNAME)/3rdparty
 	@install -m 0755 -d $(INSTALL_INCLUDEPATH)/$(LIBNAME)/3rdparty/poshlib
 	@install -m 0644 $(3RDPARTYPATH)/poshlib/posh.h $(INSTALL_INCLUDEPATH)/$(LIBNAME)/3rdparty/poshlib/
-	@echo Configuring pkg-config...
-	@install -m 0644 $(LIBNAME).pc $(PKGCONFIG_PCPATH)/$(LIBNAME).pc
-	@echo Configuring cmake...
-	@install -m 0644 Find$(LIBNAME_UPPER).cmake /usr/share/cmake-*/Modules/
+	@if [ -d $(PKGCONFIG_PCPATH) ]; then echo Configuring pkg-config...; install -m 0644 $(LIBNAME).pc $(PKGCONFIG_PCPATH)/$(LIBNAME).pc; else echo pkg-config not found; fi
+	@if [ -d $(CMAKEMODULES_PATH) ]; then echo Configuring CMake...; install -m 0644 Find$(LIBNAME_UPPER).cmake $(CMAKEMODULES_PATH)/; else echo CMake not found; fi
 	@echo Atlante was installed successfully.
 endif
 
@@ -129,10 +128,8 @@ else
 	@rm -f $(INSTALL_LIBPATH)/$(LIBFILE)
 	@echo Removing $(INSTALL_INCLUDEPATH)/$(LIBNAME) ...
 	@rm -f -r $(INSTALL_INCLUDEPATH)/$(LIBNAME)
-	@echo Removing $(PKGCONFIG_PCPATH)/$(LIBNAME).pc ...
-	@rm -f $(PKGCONFIG_PCPATH)/$(LIBNAME).pc
-	@echo Removing /usr/share/cmake-*/Modules/Find$(LIBNAME_UPPER).cmake
-	@rm -f /usr/share/cmake-*/Modules/Find$(LIBNAME_UPPER).cmake
+	@if [ -d $(PKGCONFIG_PCPATH) ]; then echo Removing $(PKGCONFIG_PCPATH)/$(LIBNAME).pc ...; rm -f $(PKGCONFIG_PCPATH)/$(LIBNAME).pc; fi;
+	@if [ -d $(CMAKEMODULES_PATH) ]; then echo Removing $(CMAKEMODULES_PATH)/Find$(LIBNAME_UPPER).cmake; rm -f $(CMAKEMODULES_PATH)/Find$(LIBNAME_UPPER).cmake; fi
 endif
 	@echo Atlante was uninstalled successfully.
 
