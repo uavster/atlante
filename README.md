@@ -16,6 +16,10 @@ Run 'sudo make install'
 On Windows:
 Run 'make' and copy libatlante.a to some folder in your path
 
+Contact
+=======
+If you have any suggestion, please contact the author through http://uavster.com/contact
+
 Contributors
 ------------
 [Ignacio M. Bataller](https://github.com/uavster): Original project creator and maintainer
