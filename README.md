@@ -18,7 +18,7 @@ Run 'make' and copy libatlante.a to some folder in your path
 
 Contact
 =======
-If you have any suggestion, please contact the author through http://uavster.com/contact
+If you have any suggestion, please go to http://uavster.com/contact
 
 Contributors
 ------------
