@@ -22,6 +22,6 @@ Contact
 If you have any suggestion, please go to http://uavster.com/contact
 
 Contributors
-------------
+============
 [Ignacio M. Bataller](https://github.com/uavster): Original project creator and maintainer
 
