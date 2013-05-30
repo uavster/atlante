@@ -114,8 +114,8 @@ else
 	@install -m 0755 -d $(INSTALL_INCLUDEPATH)/$(LIBNAME)/3rdparty
 	@install -m 0755 -d $(INSTALL_INCLUDEPATH)/$(LIBNAME)/3rdparty/poshlib
 	@install -m 0644 $(3RDPARTYPATH)/poshlib/posh.h $(INSTALL_INCLUDEPATH)/$(LIBNAME)/3rdparty/poshlib/
-	@if [ -d $(PKGCONFIG_PCPATH) ]; then echo Configuring pkg-config...; install -m 0644 $(LIBNAME).pc $(PKGCONFIG_PCPATH)/$(LIBNAME).pc; else echo pkg-config not found; fi
-	@if [ -d $(CMAKEMODULES_PATH) ]; then echo Configuring CMake...; install -m 0644 Find$(LIBNAME_UPPER).cmake $(CMAKEMODULES_PATH)/; else echo CMake not found; fi
+	@if [ -d $(PKGCONFIG_PCPATH) ]; then echo Configuring pkg-config...; install -m 0644 install/$(LIBNAME).pc $(PKGCONFIG_PCPATH)/$(LIBNAME).pc; else echo pkg-config not found; fi
+	@if [ -d $(CMAKEMODULES_PATH) ]; then echo Configuring CMake...; install -m 0644 install/Find$(LIBNAME_UPPER).cmake $(CMAKEMODULES_PATH)/; else echo CMake not found; fi
 	@echo Atlante was installed successfully.
 endif
 
