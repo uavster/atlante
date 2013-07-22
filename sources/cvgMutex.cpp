@@ -9,6 +9,12 @@
 
 #include <cvgMutex.h>
 
+#ifdef PTHREAD_MUTEX_RECURSIVE_NP
+#define MUTEX_RECURSIVE_FLAG PTHREAD_MUTEX_RECURSIVE_NP
+#else	// In OS X, the constant is defined without the trailing _NP
+#define MUTEX_RECURSIVE_FLAG PTHREAD_MUTEX_RECURSIVE
+#endif
+ 
 cvgMutex::cvgMutex(cvg_bool recursive) {
 	pthread_mutexattr_t mutexAttr;
 	if (recursive) {
