@@ -20,7 +20,7 @@ cvgMutex::cvgMutex(cvg_bool recursive) {
 	if (recursive) {
 		if (pthread_mutexattr_init(&mutexAttr) != 0)
 			throw cvgException("[Mutex] Unable to initialize mutex attributes");
-		if (pthread_mutexattr_settype(&mutexAttr, PTHREAD_MUTEX_RECURSIVE_NP) != 0) {
+		if (pthread_mutexattr_settype(&mutexAttr, MUTEX_RECURSIVE_FLAG) != 0) {
 			pthread_mutexattr_destroy(&mutexAttr);
 			throw cvgException("[Mutex] Unable to set mutex type to recursive");
 		}
