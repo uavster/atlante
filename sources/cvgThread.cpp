@@ -84,7 +84,13 @@ bool cvgThread::kill() {
 	timespec ts;
 	setAbsoluteTimeout(&ts, DEFAULT_KILL_TIMEOUT);
 	void *retval;
+#ifdef PTHREAD_MUTEX_RECURSIVE_NP
 	return pthread_timedjoin_np(handle, &retval, &ts) != ETIMEDOUT;
+#else
+	pthread_join(handle, &retval);
+	return true;
+#endif
+
 #else
 #warning "Atlante does not support kill() in Windows yet"
 #endif
@@ -107,10 +113,15 @@ void cvgThread::stop(bool killIfNecessary) {
 #else
 		loop = false;
 
+#ifdef PTHREAD_MUTEX_RECURSIVE_NP
 		timespec ts;
 		setAbsoluteTimeout(&ts, stopTimeout);
 		void *retval;
-		error = pthread_timedjoin_np(handle, &retval, &ts) == ETIMEDOUT;
+		error = pthread_timedjoin_np(handle, &retval, &ts) == ETIMEDOUT;#else
+		void *retval;
+		pthread_join(handle, &retval);
+#endif
+
 		if (error && killIfNecessary) {
 			started = !kill();
 			if (!started) throw cvgException("The thread \"" + name + "\" had to be killed to stop!! Please review your code");
