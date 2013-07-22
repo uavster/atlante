@@ -9,7 +9,6 @@
 #define CVGCONDITION_H_
 
 #include "cvgMutex.h"
-#include <atlante.h>
 #include <math.h>
 #include <sys/time.h>
 #include <time.h>
